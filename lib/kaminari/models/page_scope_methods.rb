@@ -66,5 +66,13 @@ module Kaminari
     def out_of_range?
       current_page > total_pages
     end
+
+    def first_index
+      offset_value / limit_value * default_per_page + 1
+    end
+
+    def last_index
+      offset_value / limit_value * default_per_page + length
+    end
   end
 end
