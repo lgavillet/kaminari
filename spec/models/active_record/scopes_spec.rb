@@ -213,6 +213,40 @@ if defined? ActiveRecord
           end
         end
 
+        describe '#first_index' do
+          context 'on first page' do
+            subject { model_class.page(1).per(10) }
+            its(:first_index) { should == 1 }
+          end
+
+          context 'within range' do
+            subject { model_class.page(3).per(10) }
+            its(:first_index?) { should == 21 }
+          end
+
+          context 'on last page' do
+            subject { model_class.page(10).per(10) }
+            its(:first_index) { should == 91 }
+          end
+        end
+
+        describe '#last_index' do
+          context 'on first page' do
+            subject { model_class.page(1).per(10) }
+            its(:last_index) { should == 10 }
+          end
+
+          context 'within range' do
+            subject { model_class.page(3).per(10) }
+            its(:last_index) { should == 30 }
+          end
+
+          context 'on last page' do
+            subject { model_class.page(10).per(10) }
+            its(:last_index) { should == 100 }
+          end
+        end
+
         describe '#count' do
           context 'page 1' do
             subject { model_class.page }
